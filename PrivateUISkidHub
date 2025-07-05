@@ -1,0 +1,189 @@
+-- Skid Hub v2.2 (Final) — With Minimize & Reopen Button
+local Gui = Instance.new("ScreenGui")
+local Toggle = Instance.new("TextButton")
+local Main = Instance.new("Frame")
+local Sidebar = Instance.new("Frame")
+local AutoFarmTab = Instance.new("TextButton")
+local PremiumTab = Instance.new("TextButton")
+local ContentFrame = Instance.new("ScrollingFrame")
+local UICorner = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+local Title = Instance.new("TextLabel")
+local Minimize = Instance.new("TextButton")
+local Reopen = Instance.new("TextButton")
+
+Gui.Name = "SkidHubV2_2"
+Gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- Toggle Button (☰)
+Toggle.Parent = Gui
+Toggle.Position = UDim2.new(0, 10, 0.5, -20)
+Toggle.Size = UDim2.new(0, 28, 0, 28)
+Toggle.Text = "☰"
+Toggle.TextColor3 = Color3.fromRGB(200, 200, 255)
+Toggle.BackgroundColor3 = Color3.fromRGB(20, 20, 40)
+Toggle.Font = Enum.Font.Code
+Toggle.TextSize = 18
+
+-- Reopen Button (+)
+Reopen.Parent = Gui
+Reopen.Size = UDim2.new(0, 28, 0, 28)
+Reopen.Position = UDim2.new(0, 10, 1, -40)
+Reopen.Text = "+"
+Reopen.TextColor3 = Color3.fromRGB(200, 255, 200)
+Reopen.BackgroundColor3 = Color3.fromRGB(25, 25, 45)
+Reopen.Visible = false
+Reopen.Font = Enum.Font.Code
+Reopen.TextSize = 18
+
+-- Main UI
+Main.Parent = Gui
+Main.Size = UDim2.new(0, 640, 0, 450)
+Main.Position = UDim2.new(0.25, 0, 0.2, 0)
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 30)
+Main.Visible = true
+Main.Draggable = true
+Main.Active = true
+
+UICorner.CornerRadius = UDim.new(0, 8)
+UICorner.Parent = Main
+
+UIStroke.Parent = Main
+UIStroke.Color = Color3.fromRGB(0, 130, 255)
+UIStroke.Thickness = 2
+
+-- Title Label
+Title.Parent = Main
+Title.Size = UDim2.new(1, 0, 0, 28)
+Title.BackgroundColor3 = Color3.fromRGB(15, 15, 30)
+Title.Text = "Skid Hub v2.2"
+Title.TextColor3 = Color3.fromRGB(200, 220, 255)
+Title.TextSize = 16
+Title.Font = Enum.Font.Code
+Title.TextXAlignment = Enum.TextXAlignment.Center
+
+-- Minimize Button (➖)
+Minimize.Parent = Main
+Minimize.Size = UDim2.new(0, 28, 0, 28)
+Minimize.Position = UDim2.new(1, -30, 0, 0)
+Minimize.Text = "-"
+Minimize.TextColor3 = Color3.fromRGB(255, 200, 200)
+Minimize.BackgroundColor3 = Color3.fromRGB(25, 0, 0)
+Minimize.Font = Enum.Font.Code
+Minimize.TextSize = 18
+
+-- Sidebar
+Sidebar.Parent = Main
+Sidebar.Size = UDim2.new(0, 140, 1, -28)
+Sidebar.Position = UDim2.new(0, 0, 0, 28)
+Sidebar.BackgroundColor3 = Color3.fromRGB(25, 25, 50)
+
+AutoFarmTab.Parent = Sidebar
+AutoFarmTab.Size = UDim2.new(1, 0, 0, 35)
+AutoFarmTab.Position = UDim2.new(0, 0, 0, 8)
+AutoFarmTab.Text = "Auto Farm"
+AutoFarmTab.Font = Enum.Font.Code
+AutoFarmTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+AutoFarmTab.BackgroundColor3 = Color3.fromRGB(35, 35, 65)
+
+PremiumTab.Parent = Sidebar
+PremiumTab.Size = UDim2.new(1, 0, 0, 35)
+PremiumTab.Position = UDim2.new(0, 0, 0, 50)
+PremiumTab.Text = "Premium"
+PremiumTab.Font = Enum.Font.Code
+PremiumTab.TextColor3 = Color3.fromRGB(255, 255, 255)
+PremiumTab.BackgroundColor3 = Color3.fromRGB(35, 35, 65)
+
+-- Scrollable Content Frame
+ContentFrame.Name = "Content"
+ContentFrame.Parent = Main
+ContentFrame.Position = UDim2.new(0, 150, 0, 35)
+ContentFrame.Size = UDim2.new(1, -160, 1, -45)
+ContentFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 35)
+ContentFrame.CanvasSize = UDim2.new(0, 0, 0, 9999)
+ContentFrame.ScrollBarThickness = 6
+ContentFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+ContentFrame.ClipsDescendants = true
+
+-- Add Buttons
+local function addScriptButtons(scripts)
+	ContentFrame:ClearAllChildren()
+	local x, y = 0, 0
+	for i, data in ipairs(scripts) do
+		local button = Instance.new("TextButton")
+		button.Parent = ContentFrame
+		button.Size = UDim2.new(0.48, -5, 0, 30)
+		button.Position = UDim2.new(x == 0 and 0 or 0.52, 5, 0, y * 35)
+		button.BackgroundColor3 = Color3.fromRGB(30, 30, 60)
+		button.TextColor3 = Color3.fromRGB(255, 255, 255)
+		button.Font = Enum.Font.Code
+		button.TextSize = 14
+		button.Text = data.name
+		button.MouseButton1Click:Connect(function()
+			pcall(function()
+				loadstring(game:HttpGet(data.url))()
+			end)
+		end)
+		if x == 1 then y = y + 1 end
+		x = (x + 1) % 2
+	end
+end
+
+-- Auto Farm Scripts
+local autoFarmScripts = {
+	{name = "Auto Bonds - HeadHarse", url = "https://raw.githubusercontent.com/HeadHarse/DeadRails/refs/heads/main/AutoFarmBonds"},
+	{name = "Auto Bonds - InvertedTH", url = "https://raw.githubusercontent.com/invertedth/Autobonds/refs/heads/main/Autobondscirpt.lua"},
+	{name = "Auto Bonds - Yoursvexyyy", url = "https://raw.githubusercontent.com/yoursvexyyy/deadrails/refs/heads/main/autobonds"},
+	{name = "Auto Bonds - Moondiety", url = "https://raw.githubusercontent.com/m00ndiety/Dead-rails/refs/heads/main/Auto-Win-With-Bonds"},
+	{name = "Auto Bonds - Ayvathion", url = "https://raw.githubusercontent.com/Ayvathion/AV-On-Top/refs/heads/main/Loader.lua"},
+	{name = "Auto Bonds - UnlessDahell", url = "https://raw.githubusercontent.com/UnlessDahell/Test*/refs/heads/main/autofarmdr.lua"},
+	{name = "Auto Bonds - Omgshit", url = "https://raw.githubusercontent.com/Omgshit/Scripts/main/MainLoader.lua"},
+}
+
+-- Premium Scripts
+local premiumScripts = {
+	{name = "Pastefy Loader", url = "https://pastefy.app/O3hvZP6g/raw"},
+	{name = "Moondiety Loader", url = "https://raw.githubusercontent.com/m00ndiety/Moondiety/refs/heads/main/Loader"},
+	{name = "KiciaHook Loader", url = "https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"},
+	{name = "Selftilted DeadRails", url = "https://raw.githubusercontent.com/selftilted/flighttosky/refs/heads/main/DeadRails"},
+	{name = "Qiwikox12 Stubrawl", url = "https://raw.githubusercontent.com/Qiwikox12/stubrawl/refs/heads/main/DeadRails.txt"},
+	{name = "Dead Rails GUI v1", url = "https://raw.githubusercontent.com/skiddozzzzzzzz/Ooh/refs/heads/main/Main"},
+	{name = "GetNative Loader", url = "https://getnative.cc/script/loader"},
+	{name = "Rifton Loader", url = "https://rifton.top/loader.lua"},
+	{name = "TbaoHub Dead Rails", url = "https://raw.githubusercontent.com/tbao143/thaibao/refs/heads/main/TbaoHubDeadRails"},
+	{name = "Lunor Loader", url = "https://lunor.dev/loader"},
+	{name = "SkullHub - HungQuan99", url = "https://raw.githubusercontent.com/hungquan99/SkullHub/main/loader.lua"},
+	{name = "MainRingta - Wefwef", url = "https://raw.githubusercontent.com/wefwef127382/DEADRAILS.github.io/refs/heads/main/mainringta.lua"},
+	{name = "LUNEC - Bacon12", url = "https://raw.githubusercontent.com/LiterallyBacon12/LUNEC-On-Top/refs/heads/main/Official%20Source.lua"},
+	{name = "Auto UFO - Yoursvexyyy", url = "https://raw.githubusercontent.com/yoursvexyyy/deadrails/refs/heads/main/autoufo"},
+	{name = "Train UI - Ringtaa", url = "https://raw.githubusercontent.com/ringtaa/train.github.io/refs/heads/main/uinew.lua"},
+}
+
+-- Tab Switching
+AutoFarmTab.MouseButton1Click:Connect(function()
+	addScriptButtons(autoFarmScripts)
+end)
+
+PremiumTab.MouseButton1Click:Connect(function()
+	addScriptButtons(premiumScripts)
+end)
+
+Toggle.MouseButton1Click:Connect(function()
+	Main.Visible = not Main.Visible
+end)
+
+-- Minimize
+Minimize.MouseButton1Click:Connect(function()
+	Main.Visible = false
+	Reopen.Visible = true
+end)
+
+-- Reopen
+Reopen.MouseButton1Click:Connect(function()
+	Main.Visible = true
+	Reopen.Visible = false
+end)
+
+-- Load Default
+addScriptButtons(autoFarmScripts)
