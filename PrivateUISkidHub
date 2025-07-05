@@ -148,7 +148,7 @@ local premiumScripts = {
 	{name = "KiciaHook Loader", url = "https://raw.githubusercontent.com/kiciahook/kiciahook/refs/heads/main/loader.lua"},
 	{name = "Selftilted DeadRails", url = "https://raw.githubusercontent.com/selftilted/flighttosky/refs/heads/main/DeadRails"},
 	{name = "Qiwikox12 Stubrawl", url = "https://raw.githubusercontent.com/Qiwikox12/stubrawl/refs/heads/main/DeadRails.txt"},
-	{name = "Dead Rails GUI v1", url = "https://raw.githubusercontent.com/skiddozzzzzzzz/Ooh/refs/heads/main/Main"},
+	{name = "Dead Rails GUI v1", url = "https://raw.githubusercontent.com/skiddozzzzzzzz/Ooh/refs/heads/main/Dead%20rails%20script%20hub%20v1.0"},
 	{name = "GetNative Loader", url = "https://getnative.cc/script/loader"},
 	{name = "Rifton Loader", url = "https://rifton.top/loader.lua"},
 	{name = "TbaoHub Dead Rails", url = "https://raw.githubusercontent.com/tbao143/thaibao/refs/heads/main/TbaoHubDeadRails"},
