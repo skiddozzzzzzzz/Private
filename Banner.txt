@@ -3,10 +3,11 @@ async def on_ready():
     await update_status()
     print(f"{Fore.GREEN}{troller.user} is online ready To Nuke Gachas/Retards")
 
-    red   = "\033[38;2;255;0;0m"
-    orange = "\033[38;2;255;165;0m"
-    yellow = "\033[38;2;255;255;0m"
-    reset  = "\033[0m"
+    red = "\033[38;2;255;0;0m"
+yellow = "\033[38;2;255;255;0m"
+orange = "\033[38;2;255;165;0m"
+reset = "\033[0m"
+
 
     banner = f"""
 {red}████████╗██████╗░░█████╗░██╗░░░░░██╗░░░░░███████╗██████╗░
